@@ -186,7 +186,7 @@ int process_directory(const char *path, int print_header)
         {
             total_blocks += entries[i].st.st_blocks;
         }
-        printf("total %lld\n", total_blocks);
+        printf("total %lld\n", total_blocks / 2);
 
         for (int i = 0; i < count; i++)
         {
