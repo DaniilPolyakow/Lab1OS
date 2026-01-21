@@ -4,20 +4,31 @@
 #include <sys/shm.h>
 #include <sys/sem.h>
 #include <time.h>
+#include <signal.h>
 
 #define SHM_KEY 0x1234
 #define SEM_KEY 0x5678
+
+int shmid, semid;
+char* shm;
 
 void sem_op(int semid, int op) {
     struct sembuf sb = {0, op, 0};
     semop(semid, &sb, 1);
 }
 
-int main() {
-    int shmid = shmget(SHM_KEY, 256, 0666);
-    char* shm = shmat(shmid, NULL, 0);
+void cleanup(int sig) {
+    shmdt(shm);          
+    _exit(0);
+}
 
-    int semid = semget(SEM_KEY, 1, 0666);
+int main() {
+    signal(SIGINT, cleanup);
+
+    shmid = shmget(SHM_KEY, 256, 0666);
+    shm = shmat(shmid, NULL, 0);
+
+    semid = semget(SEM_KEY, 1, 0666);
 
     while (1) {
         time_t now = time(NULL);
@@ -30,7 +41,4 @@ int main() {
 
         sleep(3);
     }
-
-    shmdt(shm);
-    return 0;
 }
