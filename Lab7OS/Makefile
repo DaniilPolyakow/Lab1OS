@@ -1,17 +1,16 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -O2
-LIBS = -lpthread -lrt
 
-SENDER = sender_new
-RECEIVER = receiver_new
+SENDER = sender_sysv
+RECEIVER = receiver_sysv
 
 all: $(SENDER) $(RECEIVER)
 
-$(SENDER): sender_new.c
-	$(CC) $(CFLAGS) sender_new.c -o $(SENDER) $(LIBS)
+$(SENDER): sender_sysv.c
+	$(CC) $(CFLAGS) sender_sysv.c -o $(SENDER)
 
-$(RECEIVER): receiver_new.c
-	$(CC) $(CFLAGS) receiver_new.c -o $(RECEIVER) $(LIBS)
+$(RECEIVER): receiver_sysv.c
+	$(CC) $(CFLAGS) receiver_sysv.c -o $(RECEIVER)
 
 run_sender: $(SENDER)
 	./$(SENDER)
