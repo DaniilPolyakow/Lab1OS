@@ -1,13 +1,16 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11 -pthread
+CFLAGS = -Wall -Wextra -std=c11 -O2
+LDFLAGS = -pthread
 
-TARGET = lab10_rwlock
-SRC = lab10_rwlock.c
+TARGET = rwlock_demo
+SRC = main.c
 
 all: $(TARGET)
 
 $(TARGET): $(SRC)
-	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
+	$(CC) $(CFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
 
 clean:
 	rm -f $(TARGET)
+
+.PHONY: all clean
