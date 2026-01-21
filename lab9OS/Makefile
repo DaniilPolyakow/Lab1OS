@@ -2,9 +2,9 @@ CC = gcc
 CFLAGS = -Wall -Wextra -O2
 PTHREAD = -pthread
 
-TARGETS = pr9_1 sender receiver
+ALL = pr9_1 sender receiver
 
-all: $(TARGETS)
+all: $(ALL)
 
 pr9_1: pr9_1.c
 	$(CC) $(CFLAGS) $(PTHREAD) pr9_1.c -o pr9_1
@@ -16,4 +16,4 @@ receiver: receiver.c
 	$(CC) $(CFLAGS) receiver.c -o receiver
 
 clean:
-	rm -f $(TARGETS)
+	rm -f $(ALL)
